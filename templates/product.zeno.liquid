@@ -5,7 +5,14 @@
 <div class="content-wrapper">
 
   {% section 'product-template' %}
-        
+        <div class="zn-content product">
+          {% assign productKey = 'zeno-product-' | append: product.id %}
+          <link rel="stylesheet" href="{{ productKey | append: '.css' | asset_url }}">
+          {% assign oriProduct = product %} 
+          {% include productKey %}
+          {% assign product = oriProduct %}
+          <script src="{{ productKey | append: '.js' | asset_url }}"></script>
+        </div>
       
   {% section 'product-recommendations' %}
 

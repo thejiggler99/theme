@@ -1,37 +1,14 @@
-{% comment %}
-  The contents of the product.liquid template can be found in /sections/product-template.liquid
-{% endcomment %}
 
-<div class="content-wrapper">
-
-  {% section 'product-template' %}
-        
+        <div class="zn-content product">
+          {% assign productKey = 'zeno-product-' | append: product.id %}
+          <link rel="stylesheet" href="{{ productKey | append: '.css' | asset_url }}">
+          {% assign oriProduct = product %} 
+          {% include productKey %}
+          {% assign product = oriProduct %}
+          <script src="{{ productKey | append: '.js' | asset_url }}"></script>
+        </div>
       
-  {% section 'product-recommendations' %}
-
-  {% if collection %}
-    <div class="text-center return-link-wrapper page-width">
-      <a href="{{ collection.url }}" class="btn btn--secondary btn--has-icon-before return-link">
-        {% include 'icon-arrow-left' %}
-        {{ 'products.product.back_to_collection' | t: title: collection.title }}
-      </a>
-    </div>
-  {% endif %}
-</div>
-<script>
-  // Override default values of shop.strings for each template.
-  // Alternate product templates can change values of
-  // add to cart button, sold out, and unavailable states here.
-  theme.productStrings = {
-    addToCart: {{ 'products.product.add_to_cart' | t | json }},
-    soldOut: {{ 'products.product.sold_out' | t | json }},
-    unavailable: {{ 'products.product.unavailable' | t | json }}
-  }
-</script>
-
-{% assign current_variant = product.selected_or_first_available_variant %}
-
-<script type="application/ld+json">
+            <script type="application/ld+json">
 {
   "@context": "http://schema.org/",
   "@type": "Product",
@@ -66,4 +43,6 @@
     {%- endfor -%}
   ]
 }
-</script>
+
+            </script>
+          
